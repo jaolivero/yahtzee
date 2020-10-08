@@ -1,45 +1,49 @@
 package com.carObject;
 
+
+
 import java.util.*;
 
 public class Dice extends Die {
     private int numberDice;
-    private int dieValue;
+    public int rounds;
     private static Scanner scan = new Scanner(System.in);
-    public boolean value;
     public List<Die> dice = new ArrayList<Die>();
+    public List<Integer> dieList = new ArrayList<Integer>();
 
-    public Dice() {
-        numberDice = 0;
-        dieValue = 0;
-    }
-
-    public Dice(int numberDice, int dieValue) {
+    public Dice(int numberDice, int rounds) {
         this.numberDice = numberDice;
-        this.dieValue = dieValue;
+        this.rounds = rounds;
+        assignValue();
     }
 
-    public void assignValue() {
-        for (int i = 0; i < 5; i++) {
-            // var newDie = new Die();
+    private void assignValue() {
+        for(int i = 0; i < 5; i++){
             dice.add(new Die());
-            // inline. Only user variable once.
+            dice.get(i).roll();
+            System.out.print(getDieValue(i) + " ");
         }
-    }
+        rounds++;
+        System.out.println("Round " + rounds);
+        System.out.println();
+        System.out.println(dice);
+        }
 
-    public void reRoll(int random) {
-        while (true) {
+    public void userInteraction() {
+        do {
             System.out.println("Would you like to reroll the first dice?");
-            String firstDice = scan.nextLine();
-            System.out.println(firstDice);
-            if(firstDice == "yes") {
+            String response = scan.nextLine();
+            if(response == "yes") {
                 dice.set(1, new Die());
+                dieList.set(0, getDieValue(0));
             }
-
-
-            // Access array, create random, random = array[index]
-            System.out.println("Which dice would you like to roll a specific dice");
+            System.out.println(dieList);
+            System.out.println(Die.getValue());
+            System.out.println("Which specific dice would you like to reroll?");
             int specificDie = scan.nextInt();
+            dice.set(specificDie, new Die());
+            System.out.println(dice);
+
             // Access array[index], make it equal to random.
 
             System.out.println("Reroll multiple dice");
@@ -47,13 +51,19 @@ public class Dice extends Die {
 
 
             //break
-        }
+        } while(true);
     }
 
         public int getDieValue (int pos){
             return dice.get(pos).getValue();
-        }
+
     }
+    public String toString(){
+        return Integer.toString(getValue());
+    }
+
+}
+
 //    public int getDieValue(int numberDice)
 //    {
 //

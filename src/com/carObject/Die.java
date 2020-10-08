@@ -4,13 +4,13 @@ import java.util.Random;
 
 public class Die {
 
+    private static int value;
     private int sides;
-    private int value;
 
     public Die()
     {
         sides = 6;
-        value = 1;
+        value = 0;
     }
 
     public Die(int sides, int value)
@@ -24,7 +24,6 @@ public class Die {
     {
         Random random = new Random();
         value = random.nextInt(sides) + 1;
-
         return value;
     }
 
@@ -32,16 +31,7 @@ public class Die {
         return sides;
     }
 
-    public void setNumSides(int numSides) {
-        this.sides = numSides;
-    }
-
-    public int getValue() {
+    public static int getValue() {
         return value;
     }
-
-    public int setValue(int value) {
-        return this.value;
-    }
-
 }
