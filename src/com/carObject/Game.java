@@ -1,33 +1,27 @@
 package com.carObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
     private static Scanner scan = new Scanner(System.in);
     boolean runAgain = true;
-    public int rounds = 0;
     boolean rolledYahtzee = false;
 
-
-
-    public static void userInput() {
-        System.out.println("Input the dice you would like to reroll");
-        String input = scan.nextLine();
-        System.out.println(input);
-
-    }
-//    while(runAgain) {
+//    while(
+//runAgain) {
 //        while(!rolledYahtzee) {
 //        rounds++;
 ////        Score = checkForYahtzee(dice);
 //        }
 //    }
 
-    public static boolean checkForYahtzee(Die[] dieArray) {
-        for(int i = 0; i < dieArray.length; i++) {
-            for(int j = i+1; j < dieArray.length; j++) {
-                if(dieArray[i].getValue() != dieArray[j].getValue()) {
+    public static boolean checkForYahtzee(ArrayList<Integer> dieList) {
+        for(int i = 0; i < dieList.size(); i++) {
+            for(int j = i+1; j < dieList.size(); j++) {
+                if(dieList.get(i) != dieList.get(j)) {
                     return false;
                 }
             }

@@ -14,50 +14,57 @@ public class Dice extends Die {
     public Dice(int numberDice, int rounds) {
         this.numberDice = numberDice;
         this.rounds = rounds;
-        assignValue();
+        beginGame();
     }
 
     private void assignValue() {
         for(int i = 0; i < 5; i++){
             dice.add(new Die());
             dice.get(i).roll();
-            System.out.print(getDieValue(i) + " ");
         }
         rounds++;
         System.out.println("Round " + rounds);
-        System.out.println();
-        System.out.println(dice);
+        displayScore();
         }
 
-    public void userInteraction() {
-        do {
-            System.out.println("Would you like to reroll the first dice?");
-            String response = scan.nextLine();
-            if(response == "yes") {
-                dice.set(1, new Die());
-                dieList.set(0, getDieValue(0));
+        public void reRoll(int input) {
+        if (input <= 5) {
+            Die die= dice.get(input - 1);
+            die.roll();
+        }
+    }
+
+    public void displayScore() {
+       for (int j = 0; j < 5; j++) {
+           System.out.println(dice.get(j).getValue());
+       }
+    }
+
+    public static List<Integer> userInteraction() {
+        System.out.println("Input the dice you would like to reroll");
+        String input = scan.nextLine();
+        System.out.println(input);
+        String[] inputArray = input.split(" "); // [ "1", "2", "3" ]
+        List<Integer> choices = new ArrayList<Integer>();
+        for (String number : inputArray) {
+            choices.add(Integer.parseInt(number) - 1);
             }
-            System.out.println(dieList);
-            System.out.println(Die.getValue());
-            System.out.println("Which specific dice would you like to reroll?");
-            int specificDie = scan.nextInt();
-            dice.set(specificDie, new Die());
-            System.out.println(dice);
+            return choices;
+        }
 
-            // Access array[index], make it equal to random.
-
-            System.out.println("Reroll multiple dice");
-            int multipleDice = scan.nextInt();
-
-
-            //break
-        } while(true);
+    public void beginGame() {
+        assignValue();
+        while(rounds < 3) {
+            userInteraction();
+            rounds++;
+        }
+        displayScore();
     }
 
         public int getDieValue (int pos){
             return dice.get(pos).getValue();
-
     }
+
     public String toString(){
         return Integer.toString(getValue());
     }
