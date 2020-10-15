@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Dice extends Die {
     private int numberDice;
-    public int rounds;
+    public int rounds = 1;
     private static Scanner scan = new Scanner(System.in);
     public List<Die> dice = new ArrayList<Die>();
     public List<Integer> dieList = new ArrayList<Integer>();
@@ -27,38 +27,46 @@ public class Dice extends Die {
         displayScore();
         }
 
-        public void reRoll(int input) {
-        if (input <= 5) {
-            Die die= dice.get(input - 1);
+        public void reRoll(int numberOfDice) {
+            Die die= dice.get(numberOfDice);
             die.roll();
         }
-    }
 
     public void displayScore() {
        for (int j = 0; j < 5; j++) {
-           System.out.println(dice.get(j).getValue());
+           System.out.print(dice.get(j).getValue() + " ");
        }
+           System.out.println("Round " + rounds);
     }
 
-    public static List<Integer> userInteraction() {
-        System.out.println("Input the dice you would like to reroll");
-        String input = scan.nextLine();
-        System.out.println(input);
-        String[] numArray = input.split(" "); // [ "1", "2", "3" ]
-        List<Integer> choices = new ArrayList<Integer>();
-        for (String number : numArray) {
-            choices.add(Integer.parseInt(number) - 1);
+    public void userInteraction() {
+        while (rounds < 4) {
+            System.out.println("Input the dice you would like to reroll");
+            String input = scan.nextLine();
+            String[] numArray = input.split(" ");
+            rounds++;
+            for (String number : numArray) {
+                int choices = Integer.parseInt(number);
+                reRoll(choices);
+                displayScore();
+                System.out.println(rounds);
             }
-            return choices;
+            reset();
         }
+    }
+
+    public void reset() {
+        System.out.println("Would you like to try again? yes or no?");
+        String input = scan.nextLine();
+        if(input == "yes") {
+            rounds = 1;
+        }
+    }
 
     public void beginGame() {
         assignValue();
-        while(rounds < 3) {
-            userInteraction();
-            rounds++;
-        }
-        displayScore();
+        userInteraction();
+
     }
 
         public int getDieValue (int pos){

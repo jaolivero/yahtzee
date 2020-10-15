@@ -4,13 +4,12 @@ import java.util.Random;
 
 public class Die {
 
-    private static int value;
+    private int value;
     private int sides;
 
     public Die()
     {
         sides = 6;
-        value = 0;
     }
 
     public Die(int sides, int value)
@@ -31,7 +30,7 @@ public class Die {
         return sides;
     }
 
-    public static int getValue() {
-        return value;
+    public int getValue() {
+        return this.value;
     }
 }
