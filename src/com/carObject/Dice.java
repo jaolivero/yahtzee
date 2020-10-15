@@ -44,9 +44,9 @@ public class Dice extends Die {
         System.out.println("Input the dice you would like to reroll");
         String input = scan.nextLine();
         System.out.println(input);
-        String[] inputArray = input.split(" "); // [ "1", "2", "3" ]
+        String[] numArray = input.split(" "); // [ "1", "2", "3" ]
         List<Integer> choices = new ArrayList<Integer>();
-        for (String number : inputArray) {
+        for (String number : numArray) {
             choices.add(Integer.parseInt(number) - 1);
             }
             return choices;
